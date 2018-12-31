@@ -1,0 +1,81 @@
+<view class="content">
+  <view class="bg" style="background-image: url('../../images/me.jpg');">
+    <view class="head">
+      <view class="headIcon">
+        <image src="/images/icon/head.png" style="width:99px;height:99px;"></image>
+      </view>
+      <view class="login">
+        <view>kevin</view>
+        <view class="account">账号：6862826266_m</view>
+      </view>
+    </view>
+  </view>
+  <view class="hr"></view>
+  <view class="category">
+    <view class="category_item" wx:for="{{iconArray}}" bindtap="onItemClick">
+      <view class="category_item_wrap">
+        <view class="icon_wrap">
+          <image src="{{item.iconUrl}}" class="index_icon"></image>
+        </view>
+        <view class="category_item_text">
+          <text>{{item.iconText}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="list" bindtap="list">
+    <view class="item">
+      <view class="img">
+        <image src="/images/icon/order4.png" style="width:20px;height:24px;"></image>
+      </view>
+      <view class="name">全部订单</view>
+      <view class="detail">
+        <text>></text>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="item">
+      <view class="img">
+        <image src="/images/icon/order2.png" style="width:20px;height:24px;"></image>
+      </view>
+      <view class="name">待收货订单</view>
+      <view class="detail">
+        <text>></text>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="hr"></view>
+    <view class="item">
+      <view class="img">
+        <image src="/images/icon/order3.png" style="width:20px;height:24px;"></image>
+      </view>
+      <view class="name">未归还</view>
+      <view class="detail">
+        <text class="count">2单</text>
+        <text>></text>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="item">
+      <view class="img">
+        <image src="/images/icon/order1.png" style="width:20px;height:24px;"></image>
+      </view>
+      <view class="name">已完成</view>
+      <view class="detail">
+        <text>></text>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="hr"></view>
+  </view>
+  <view class="item" bindtap="loadCoupon">
+    <view class="img">
+      <image src="/images/icon/shoucang.png" style="width:20px;height:24px;"></image>
+    </view>
+    <view class="name">我的收藏</view>
+    <view class="detail">
+      <text>></text>
+    </view>
+  </view>
+  <view class="line"></view>
+</view>

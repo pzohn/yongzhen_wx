@@ -1,0 +1,17 @@
+
+<view class="search">
+  <view class="searchBg">
+    <view>
+      <image src="/images/icon/search-1.jpg" style="width:20px;height:21px;"></image>
+    </view>
+    <view>
+      <input type="text" placeholder="搜索商品名称" placeholder-class="holder" bindblur="searchGoods" id="search" value="{{name}}" />
+    </view>
+  </view>
+  <view class="btn" bindtap="resetSearch">搜索</view>
+</view>
+<view class="hr"></view>
+  <import src="../template/template" />
+  <view class="list">
+    <template is="goods" data="{{array}}" />
+  </view>
