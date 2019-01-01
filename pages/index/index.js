@@ -58,7 +58,6 @@ Page({
             longitude: longitude
           },
           success: function (res) {
-            console.log(res);
             var app = getApp();
             page.setData({
               address: res.result.address
@@ -69,7 +68,6 @@ Page({
             console.log("定位失败");
           },
           complete: function (res) {
-            console.log(123);
           }
         });
       },

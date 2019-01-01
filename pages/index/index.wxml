@@ -16,7 +16,7 @@
     <view class="swiper">
     <swiper indicator-dots="{{indicatorDots}}"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
-      <block wx:for="{{imgUrls}}">
+      <block wx:for="{{imgUrls}}" wx:key="imgUrls">
         <swiper-item>
           <image src="{{item}}" class="slide-image"/>
         </swiper-item>
@@ -39,7 +39,7 @@
 
     <view class="page-recommend">
     <view class="items-bottom">
-        <view class="items-div" bindtap="select" id="0">
+        <view class="items-div" bindtap="select" id="1">
            <view class="items-img">
                <image src="/images/icon/1.png" class="slide-image"/>
            </view>
@@ -47,7 +47,7 @@
              <span class="items-content-title">呼吸制氧</span>
            </view>
         </view>
-        <view class="items-div"  bindtap="select" id="1">
+        <view class="items-div"  bindtap="select" id="2">
               <view class="items-img">
                   <image src="/images/icon/2.png" class="slide-image"/>
               </view>
@@ -55,7 +55,7 @@
                 <span class="items-content-title">康复辅具</span>
               </view>
           </view>
-          <view class="items-div"  bindtap="select" id="2">
+          <view class="items-div"  bindtap="select" id="3">
                 <view class="items-img">
                     <image src="/images/icon/3.png" class="slide-image"/>
                 </view>
@@ -63,7 +63,7 @@
                   <span class="items-content-title">心率仪</span>
                 </view>
           </view>
-          <view class="items-div"  bindtap="select" id="3">
+          <view class="items-div"  bindtap="select" id="4">
                 <view class="items-img">
                     <image src="/images/icon/4.png" class="slide-image"/>
                 </view>
@@ -71,7 +71,7 @@
                   <span class="items-content-title">轮椅出行</span>
                 </view>
           </view>
-          <view class="items-div"  bindtap="select" id="4">
+          <view class="items-div"  bindtap="select" id="5">
                 <view class="items-img">
                     <image src="/images/icon/5.png" class="slide-image"/>
                 </view>
@@ -88,7 +88,7 @@
      </view>
 
   <view class='hotgoodcontainer'>
-      <view class='gooditem' wx:for="{{recommend}}" wx:for-index="idx" wx:for-item="good">
+      <view class='gooditem' wx:for="{{recommend}}" wx:key="recommend" wx:for-index="idx" wx:for-item="good">
         <view class='imgview'>
           <image class='productimg' src='{{good.url}}'/>
         </view>
@@ -104,7 +104,7 @@
     </view>
 
       <view class='hotgoodcontainer'>
-      <view class='gooditem' wx:for="{{hotrec}}" wx:for-index="idx" wx:for-item="good">
+      <view class='gooditem' wx:key="gooditem" wx:for="{{hotrec}}" wx:for-index="idx" wx:for-item="good">
         <view class='imgview'>
           <image class='productimg' src='{{good.url}}'/>
         </view>

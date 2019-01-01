@@ -23,7 +23,6 @@ Page({
               that.queryUsreInfo();
               //用户已经授权过
               console.log(res);
-
             }
           });
         }
@@ -32,17 +31,20 @@ Page({
   },
 
   queryUsreInfo: function () {
-    wx.request({
-      url: getApp().globalData.urlPath + 'hstc_interface/queryByOpenid',
-      data: {
-        openid: getApp().globalData.openid
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        console.log(res.data);
-        getApp().globalData.userInfo = res.data;
+    wx.login({
+      success: res => {
+        var code = res.code;
+        wx.request({
+          url: 'https://www.yztcc.com/LoginWx',
+          data: {
+            js_code: code
+          },
+          method: 'POST',
+          success: function (res) {
+            console.log(res.data);
+            getApp().globalData.userInfo = res.data;
+          }
+        })
       }
     })
   },

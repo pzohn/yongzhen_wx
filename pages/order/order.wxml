@@ -1,11 +1,11 @@
 <view class="content">
-  <view class="bg" style="background-image: url('../../images/me.jpg');">
+  <view class="bg">
     <view class="head">
       <view class="headIcon">
-        <image src="/images/icon/head.png" style="width:99px;height:99px;"></image>
+        <image src="{{avatarUrl}}" style="width:99px;height:99px;border-radius:50%"></image>
       </view>
       <view class="login">
-        <view>kevin</view>
+        <view>{{nickName}}</view>
         <view class="account">账号：6862826266_m</view>
       </view>
     </view>

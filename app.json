@@ -1,8 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/getuser/getuser",
     "pages/login/login",
-    
+  
     "pages/logs/logs",
     "pages/details/details",
     "pages/search/search",
@@ -33,7 +34,7 @@
         "selectedIconPath": "/images/bar/search-1.jpg"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/getuser/getuser",
         "text": "购物车",
         "iconPath": "/images/bar/shoppingcart-0.jpg",
         "selectedIconPath": "/images/bar/shoppingcart-1.jpg"

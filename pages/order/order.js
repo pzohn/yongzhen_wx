@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    nickName:'',
+    avatarUrl:'',
     iconArray: [
       {
         "iconUrl": '/images/icon/address.png',
@@ -42,7 +44,11 @@ Page({
     });
   },
   onLoad: function (options) {
-
+    var wxUserInfo = wx.getStorageSync('wxUserInfo');
+    this.setData({
+      nickName: wxUserInfo.nickName,
+      avatarUrl: wxUserInfo.avatarUrl
+    })
   },
 
   /**

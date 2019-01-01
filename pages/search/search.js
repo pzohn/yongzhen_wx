@@ -5,15 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    array: []
+    array: [],
+    index:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var array = this.initData();
-    this.setData({ array: array });
+    var id = options.id;
+    if(id == 0){
+      return;
+    }
+    this.initData(id);
   },
 
   /**
@@ -64,7 +68,52 @@ Page({
   onShareAppMessage: function () {
 
   },
-  initData: function () {
+
+  initData: function (id) {
+    var page = this;
+    wx.request({
+      url: 'https://www.yztcc.com/getGoodsByType',
+      data: {
+        type_id: id
+      },
+      method: 'POST',
+      success: function (res) {
+        var count = res.data.count;
+        if(count){
+          var array = [];
+          for (var index in res.data.goods) {
+            var object = new Object();
+            object.img = 'https://www.yztcc.com/product_pic/' + res.data.goods[index].product_pic;
+            object.title = res.data.goods[index].name;
+            object.company = res.data.goods[index].company;
+            object.city = '所在城市:' + res.data.goods[index].city;
+            object.price_day = res.data.goods[index].price_day + '元/天';
+            object.price_month = res.data.goods[index].price_month + '元/月';
+            object.id = res.data.goods[index].id;
+            array[index] = object;
+          }
+          page.setData({ array: array });
+        }
+      },
+      fail: function (res) {
+        wx.showModal({
+          title: '错误提示',
+          content: '服务器无响应，请联系工作人员!',
+          success: function (res) {
+            if (res.confirm) {
+            } else if (res.cancel) {
+            }
+          }
+        })
+      }
+    })
+
+
+
+
+
+
+    /*
     var array = [];
     var object1 = new Object();
     object1.img = "/images/search/1.jpg";
@@ -107,12 +156,14 @@ Page({
     array[4] = object5;
 
     return array;
+    */
   },
 
   seeDetail: function (e) {
-    var id = e.currentTarget.id;
+    var id = this.data.array[e.currentTarget.id].id;
+    console.log(id);
     wx.navigateTo({
-      url: '../details/details'
+      url: '../details/details?id=' + id
     });
   }
 })
