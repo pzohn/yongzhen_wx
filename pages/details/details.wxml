@@ -27,7 +27,7 @@
 <view class="goods_infor_top">
   <view class="goods_title1">
    {{address}}
-    <view class="goods_collect_btn1" bindtap="collect">
+    <view class="goods_collect_btn1" bindtap="select">
      <button class="btn" disabled="{{disabled}}" type="{{btnstate}}" bindtap="login">商铺选择</button>
     </view>
   </view>
@@ -97,7 +97,7 @@
 <view class="goods_detail">
   <view class="goods_detail_title">商品详情</view>
   <view>
-    <image bindload="cusImageLoad" src="/images/search/13.jpg" style="width:{{imageWidth}};height:{{imageHeight}}"></image>
+    <image bindload="cusImageLoad" src="{{detail_pic}}" style="width:{{imageWidth}};height:{{imageHeight}}"></image>
   </view>
 </view>
 <view class="goods_bottom"></view>

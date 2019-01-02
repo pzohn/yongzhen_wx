@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/leasing/leasing",
     "pages/getuser/getuser",
     "pages/login/login",
-  
     "pages/logs/logs",
     "pages/details/details",
     "pages/search/search",

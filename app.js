@@ -37,6 +37,8 @@ App({
   },
 
   globalData: {
-    city:''
+    city:'',
+    backToLeasing:false,
+    leasing_id:0
   }
 })
