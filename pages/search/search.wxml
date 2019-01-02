@@ -10,6 +10,7 @@
   </view>
   <view class="btn" bindtap="resetSearch">搜索</view>
 </view>
+<loading hidden="{{hiddenLoading}}">正在加载</loading> 
 <view class="hr"></view>
   <import src="../template/template" />
   <view class="list">

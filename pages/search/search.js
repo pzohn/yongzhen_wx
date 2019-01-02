@@ -6,7 +6,8 @@ Page({
    */
   data: {
     array: [],
-    index:0
+    index:0,
+    hiddenLoading: false
   },
 
   /**
@@ -24,7 +25,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var tt = this;
+    setTimeout(function () {
+      tt.setData({
+        hiddenLoading: true
+      });
+    }, 2000)
   },
 
   /**
