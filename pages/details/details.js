@@ -20,6 +20,7 @@ Page({
     typeFlag:false,
     casArray: [],
     unit:[],
+    details:'',
     casIndex: 0,
     dayArray: ['请选择天数>', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
     dayIndex: 0,
@@ -110,6 +111,53 @@ Page({
             }
           }
         })
+      }
+    })
+  },
+
+  pay: function () {
+    wx.login({
+      success: res => {
+        var code = res.code;
+        console.log(code);
+        return;
+        if (code) {
+          wx.request({
+            url: 'https://www.yztcc.com/onPay',
+            data: {
+              js_code: code,
+              body: '111',
+              details: '0@90@3',
+              phone: '13938916112',
+              leasing_id: 1,
+            },
+            method: 'POST',
+            success: function (res) {
+              console.log(res);
+              wx.requestPayment(
+                {
+                  'timeStamp': res.data.timeStamp,
+                  'nonceStr': res.data.nonceStr,
+                  'package': res.data.package,
+                  'signType': 'MD5',
+                  'paySign': res.data.paySign,
+                  'success': function (res) {
+                    console.log(res);
+                    wx.showModal({
+                      title: '支付成功',
+                      content: '支付成功!',
+                    })
+                  },
+                  'fail': function (res) {
+                  },
+                  'complete': function (res) {
+                  }
+                })
+            },
+            fail: function (res) {
+            }
+          })
+        }
       }
     })
   },

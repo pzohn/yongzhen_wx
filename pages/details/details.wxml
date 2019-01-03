@@ -108,6 +108,6 @@
         <span>{{totalPrice}}元</span>
       </view>
     </view>
-    <view class="goods_half_half blue">确认订单</view>
+    <view class="goods_half_half blue" bindtap="pay">确认订单</view>
   </view>
 </view>
