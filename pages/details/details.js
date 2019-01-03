@@ -119,8 +119,6 @@ Page({
     wx.login({
       success: res => {
         var code = res.code;
-        console.log(code);
-        return;
         if (code) {
           wx.request({
             url: 'https://www.yztcc.com/onPay',
