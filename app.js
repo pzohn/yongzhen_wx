@@ -40,6 +40,8 @@ App({
     city:'',
     backToLeasing:false,
     leasing_id:0,
-    phone:''
+    phone:'',
+    authorizeFlag:false,
+    loginFlag:false
   }
 })

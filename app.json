@@ -1,16 +1,16 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/login/login",
     "pages/leasing/leasing",
     "pages/getuser/getuser",
-    "pages/login/login",
-    "pages/logs/logs",
     "pages/details/details",
     "pages/search/search",
     "pages/order/order",
     "pages/switchcity/switchcity",
     "pages/orderlist/orderlist",
-    "pages/info/info"
+    "pages/info/info",
+    "pages/registor/registor"
   ],
   "permission": {
     "scope.userLocation": {
@@ -34,7 +34,7 @@
         "selectedIconPath": "/images/bar/search-1.jpg"
       },
       {
-        "pagePath": "pages/getuser/getuser",
+        "pagePath": "pages/registor/registor",
         "text": "购物车",
         "iconPath": "/images/bar/shoppingcart-0.jpg",
         "selectedIconPath": "/images/bar/shoppingcart-1.jpg"

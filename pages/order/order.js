@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    nickName:'',
+    phone:'未登录',
+    nickName:'未授权',
     avatarUrl:'',
     iconArray: [
       {
@@ -36,6 +37,21 @@ Page({
     });
   },
 
+  authorize: function () {
+    var app = getApp();
+    if (app.globalData.authorizeFlag == false){
+      wx.navigateTo({
+        url: '../getuser/getuser'
+      });
+    }
+  },
+
+  login: function () {
+    wx.navigateTo({
+      url: '../login/login'
+    });
+  },
+
   onItemClick: function (e) {
     var index = e.currentTarget.dataset.itemIndex;
     console.log(index);
@@ -43,12 +59,19 @@ Page({
       url: '../info/info'
     });
   },
+
   onLoad: function (options) {
+    var app = getApp();
     var wxUserInfo = wx.getStorageSync('wxUserInfo');
-    this.setData({
-      nickName: wxUserInfo.nickName,
-      avatarUrl: wxUserInfo.avatarUrl
-    })
+    if (wxUserInfo == ""){
+      app.globalData.authorizeFlag = false;
+    }else{
+      this.setData({
+        nickName: wxUserInfo.nickName,
+        avatarUrl: wxUserInfo.avatarUrl
+      });
+      app.globalData.authorizeFlag = true;
+    }
   },
 
   /**

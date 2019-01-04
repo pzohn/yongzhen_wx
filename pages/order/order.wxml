@@ -5,8 +5,8 @@
         <image src="{{avatarUrl}}" style="width:99px;height:99px;border-radius:50%"></image>
       </view>
       <view class="login">
-        <view>{{nickName}}</view>
-        <view class="account">账号：6862826266_m</view>
+        <view class="authorize" bindtap="authorize">{{nickName}}</view>
+        <view class="account" bindtap="login">账号：{{phone}}</view>
       </view>
     </view>
   </view>
