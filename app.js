@@ -39,6 +39,7 @@ App({
   globalData: {
     city:'',
     backToLeasing:false,
-    leasing_id:0
+    leasing_id:0,
+    phone:''
   }
 })

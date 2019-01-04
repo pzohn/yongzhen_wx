@@ -24,6 +24,7 @@ Page({
     casIndex: 0,
     dayArray: ['请选择天数>', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
     dayIndex: 0,
+    leasing_id:0
   },
 
   onLoad: function (options) {
@@ -95,11 +96,13 @@ Page({
           price: res.data.price,
           address: res.data.leasing_first.name,
           phone: res.data.leasing_first.phone,
+          leasing_id: res.data.leasing_first.id,
           casArray: casArray,
           unit: unit,
           leasing_ids: res.data.leasings
          });
         app.globalData.backToLeasing = false;
+        app.globalData.leasing_id = page.data.leasing_id;
       },
       fail: function (res) {
         wx.showModal({
@@ -116,18 +119,60 @@ Page({
   },
 
   pay: function () {
+    var page = this;
+    var app = getApp();
+    if (page.data.casIndex == 0){
+      wx.showModal({
+        title: '错误提示',
+        content: '请选择租赁方式!',
+        showCancel:false,
+        success: function (res) {
+          if (res.confirm) {
+            return;
+          }
+        }
+      });
+      return;
+    }
+
+    if (page.data.casIndex == 2 && page.data.dayIndex == 0) {
+      wx.showModal({
+        title: '错误提示',
+        content: '租赁天数不能少于1天!',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+          }
+        }
+      });
+      return;
+    }
+
+    var details;
+    app.globalData.phone = '18303741618';
+    if (page.data.casIndex == 1){
+      details = '1@' + page.data.unit[page.data.casIndex] + '@1';
+    } else if (page.data.casIndex == 2){
+      details = '2@' + page.data.unit[page.data.casIndex] + '@' + page.data.dayArray[page.data.dayIndex];
+    }
     wx.login({
       success: res => {
         var code = res.code;
+        console.log(code);
+        console.log(page.data.title);
+        console.log(details);
+        console.log(app.globalData.phone);
+        console.log(app.globalData.leasing_id);
+        
         if (code) {
           wx.request({
             url: 'https://www.yztcc.com/onPay',
             data: {
               js_code: code,
-              body: '111',
-              details: '0@90@3',
-              phone: '13938916112',
-              leasing_id: 1,
+              body: page.data.title,
+              details: details,
+              phone: app.globalData.phone,
+              leasing_id: app.globalData.leasing_id,
             },
             method: 'POST',
             success: function (res) {
