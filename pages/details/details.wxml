@@ -8,10 +8,10 @@
    <span>{{title}}</span>
     <view class="goods_collect_btn" bindtap="collect">
       <view wx:if="{{iscollect}}">
-        <image src="/images/icon/icon-aixin.png" class="goods_collect_img"></image>
+        <image src="https://www.yztcc.com/icon/icon-aixin.png" class="goods_collect_img"></image>
       </view>
       <view wx:else>
-        <image src="/images/icon/icon-aixin1.png" class="goods_collect_img"></image>
+        <image src="https://www.yztcc.com/icon/icon-aixin1.png" class="goods_collect_img"></image>
       </view> 
       <text wx:if="{{iscollect}}">已收藏</text>
       <text wx:else>收藏</text>

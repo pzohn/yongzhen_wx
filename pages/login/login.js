@@ -29,11 +29,10 @@ Page({
     var phone = this.data.account;
     var myThis = this;
     wx.request({
-      url: 'https://www.hattonstar.com/user/save',
+      url: 'https://www.yztcc.com/login',
       data: {
-        type: 'select',
-        PHONE: this.data.account,
-        PASSWORD: this.data.password
+        phone: this.data.account,
+        passwd: this.data.password
       },
       method: 'POST',
       success: function (res) {
@@ -68,23 +67,12 @@ Page({
         else {
           if (res.data.PHONE != "") {
             var app = getApp();
-            app.globalData.id = res.data.ID;
-            app.globalData.phone = res.data.PHONE;
-            app.globalData.name = res.data.NAME;
-            app.globalData.sex = res.data.SEX;
-            app.globalData.age = res.data.AGE;
-            app.globalData.father = res.data.FATHER;
-            app.globalData.mother = res.data.MOTHER;
-            app.globalData.address = res.data.ADDRESS;
-            app.globalData.carddesc = res.data.CARDDESC;
-            app.globalData.cardnum = res.data.CARDNUM;
-            if (app.globalData.shop_id == 0) {
-              wx.navigateTo({
-                url: '../information/information',
-              })
-            } else {
-              myThis.group();
-            }
+            app.globalData.login_id = res.data.id;
+            app.globalData.phone = res.data.phone;
+            app.globalData.loginFlag = true;
+            wx.navigateBack({
+              delta: 1
+            });
           }
           else {
             wx.showModal({
@@ -108,6 +96,7 @@ Page({
       }
     })
   },
+
   accountInput: function (e) {
     var content = e.detail.value;
     if (content != '') {
@@ -115,126 +104,6 @@ Page({
     } else {
       this.setData({ disabled: true, btnstate: "default" });
     }
-  },
-
-  getFoodandCar: function () {
-    var app = getApp();
-    wx.request({
-      url: 'https://www.hattonstar.com/getShopById',
-      data: {
-        id: app.globalData.shop_id
-      },
-      method: 'POST',
-      success: function (res) {
-        if (res.data.phone != "") {
-          app.globalData.shop_food = res.data.food;
-          app.globalData.shop_car = res.data.car;
-          app.globalData.shop_phone = res.data.phone;
-          app.globalData.shop_name = res.data.name;
-          app.globalData.shop_user = res.data.user;
-          var date = util.formatDate(new Date());
-          if (date > res.data.share_date) {
-            wx.showModal({
-              title: '错误提示',
-              content: '小程序已过期,请联系团长',
-              showCancel: false,
-              success: function (res) {
-                wx.redirectTo({
-                  url: '../shopcallme/shopcallme',
-                })
-              }
-            })
-            return;
-          }
-          else {
-            wx.redirectTo({
-              url: '../shopchart/shopchart',
-            })
-          }
-        }
-      },
-      fail: function (res) {
-        wx.showModal({
-          title: '错误提示',
-          content: '服务器无响应',
-          success: function (res) {
-          }
-        })
-        return;
-      }
-    })
-  },
-
-  group: function () {
-    var app = getApp();
-    var myThis = this;
-    if (app.globalData.phone != '') {
-      wx.request({
-        url: 'https://www.hattonstar.com/getGroup',
-        data: {
-          phone: app.globalData.phone
-        },
-        method: 'POST',
-        success: function (res) {
-          if (res.data == 0) {
-            myThis.getFoodandCar();
-          }
-          else {
-            app.globalData.group_parent_num = res.data.parent_num;
-            app.globalData.group_food_num = res.data.food_num;
-            app.globalData.group_car_num = res.data.car_num;
-            app.globalData.shop_name = res.data.name;
-            app.globalData.group_class = res.data.group_class;
-            myThis.getShare();
-          }
-        },
-        fail: function (res) {
-          wx.showModal({
-            title: '错误提示',
-            content: '服务器无响应，请重新登录',
-            success: function (res) {
-              if (res.confirm) {
-                wx.redirectTo({
-                  url: '../login/login',
-                })
-              }
-            }
-          })
-          return;
-        }
-      })
-    }
-  },
-
-  getShare: function () {
-    var app = getApp();
-    wx.request({
-      url: 'https://www.hattonstar.com/getShopById',
-      data: {
-        id: app.globalData.shop_id
-      },
-      method: 'POST',
-      success: function (res) {
-        if (res.data.phone != "") {
-          app.globalData.shop_name = res.data.name;
-          app.globalData.share_date = res.data.share_date;
-          app.globalData.shop_user = res.data.user;
-          app.globalData.shop_phone = res.data.phone;
-          wx.redirectTo({
-            url: '../groupinfo/groupinfo',
-          })
-        }
-      },
-      fail: function (res) {
-        wx.showModal({
-          title: '错误提示',
-          content: '服务器无响应',
-          success: function (res) {
-          }
-        })
-        return;
-      }
-    })
   },
 
   pwdBlur: function (e) {

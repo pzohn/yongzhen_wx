@@ -1,16 +1,18 @@
 {
   "pages": [
+    "pages/orderdetail/orderdetail",
     "pages/index/index",
     "pages/login/login",
-    "pages/leasing/leasing",
+    "pages/registor/registor",
     "pages/getuser/getuser",
-    "pages/details/details",
     "pages/search/search",
     "pages/order/order",
     "pages/switchcity/switchcity",
     "pages/orderlist/orderlist",
     "pages/info/info",
-    "pages/registor/registor"
+    "pages/details/details",
+    "pages/leasing/leasing",
+    "pages/collect/collect"
   ],
   "permission": {
     "scope.userLocation": {
@@ -29,15 +31,9 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "租赁商城",
+        "text": "租赁搜索",
         "iconPath": "/images/bar/search-0.jpg",
         "selectedIconPath": "/images/bar/search-1.jpg"
-      },
-      {
-        "pagePath": "pages/registor/registor",
-        "text": "购物车",
-        "iconPath": "/images/bar/shoppingcart-0.jpg",
-        "selectedIconPath": "/images/bar/shoppingcart-1.jpg"
       },
       {
         "pagePath": "pages/order/order",

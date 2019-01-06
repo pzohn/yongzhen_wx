@@ -2,10 +2,10 @@
 <view class="search">
   <view class="searchBg">
     <view>
-      <image src="/images/icon/search-1.jpg" style="width:20px;height:21px;"></image>
+      <image src="https://www.yztcc.com/icon/search-1.jpg" style="width:20px;height:21px;"></image>
     </view>
     <view>
-      <input type="text" placeholder="搜索商品名称" placeholder-class="holder" bindblur="searchGoods" id="search" value="{{name}}" />
+      <input type="text" placeholder="请输入所要租赁的商品名称" placeholder-class="holder" bindinput="accountInput" value="{{name}}"/>
     </view>
   </view>
   <view class="btn" bindtap="resetSearch">搜索</view>

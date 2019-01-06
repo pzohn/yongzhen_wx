@@ -1,107 +1,77 @@
 // pages/shoporder/shoporder.js
 Page({
   data: {
-    orderShopList: [
-      {
-        BillDate: "2017-01-29",
-        BillNo: "SO1701190081",
-        Address: "深圳市杰尼斯科技有限公司",
-        EmpFullName: "呼吸机",
-        TotalTaxAmount: "288,000",
-        Status:"已完成"
-      },
-      {
-        BillDate: "2016-12-11",
-        BillNo: "SO1701190082",
-        Address: "佛山金亮计算机网络有限公司",
-        EmpFullName: "呼吸机",
-        TotalTaxAmount: "67,000",
-        Status: "已完成"
-      },
-      {
-        BillDate: "2017-01-11",
-        BillNo: "SO1701190083",
-        Address: "河南新乡时代计算机网络工程有限公司",
-        EmpFullName: "呼吸机",
-        TotalTaxAmount: "11,000",
-        Status: "已完成"
-      },
-      {
-        BillDate: "2016-06-06",
-        BillNo: "SO1701190084",
-        Address: "广州伟宏计算机有限公司",
-        EmpFullName: "呼吸机",
-        TotalTaxAmount: "12,111",
-        Status: "配送中"
-      },
-      {
-        BillDate: "2015-11-28",
-        BillNo: "SO1701190085",
-        Address: "深圳金石开电气有限公司",
-        EmpFullName: "轮椅",
-        TotalTaxAmount: "9,000",
-        Status: "配送中"
-      },
-      {
-        BillDate: "2017-01-29",
-        BillNo: "SO1701190081",
-        Address: "深圳市杰尼斯科技有限公司",
-        EmpFullName: "轮椅",
-        TotalTaxAmount: "288,000",
-        Status: "配送中"
-      },
-      {
-        BillDate: "2016-12-11",
-        BillNo: "SO1701190082",
-        Address: "佛山金亮计算机网络有限公司",
-        EmpFullName: "轮椅",
-        TotalTaxAmount: "67,000",
-        Status: "配送中"
-      },
-      {
-        BillDate: "2017-01-11",
-        BillNo: "SO1701190083",
-        Address: "河南新乡时代计算机网络工程有限公司",
-        EmpFullName: "轮椅",
-        TotalTaxAmount: "11,000",
-        Status: "配送中"
-      },
-      {
-        BillDate: "2016-06-06",
-        BillNo: "SO1701190084",
-        Address: "广州伟宏计算机有限公司",
-        EmpFullName: "轮椅",
-        TotalTaxAmount: "12,111",
-        Status: "配送中"
-      },
-      {
-        BillDate: "2015-11-28",
-        BillNo: "SO1701190085",
-        Address: "深圳金石开电气有限公司",
-        EmpFullName: "轮椅",
-        TotalTaxAmount: "9,000",
-        Status: "未归还"
-      },
-      {
-        BillDate: "2017-01-29",
-        BillNo: "SO1701190081",
-        Address: "深圳市杰尼斯科技有限公司",
-        EmpFullName: "轮椅",
-        TotalTaxAmount: "288,000",
-        Status: "未归还"
-      }
-    ]
-
+    orderShopList: []
   },
+
+  initData: function (id) {
+    var page = this;
+    var app = getApp();
+    wx.request({
+      url: 'https://www.yztcc.com/getTrades',
+      data: {
+        phone: app.globalData.phone,
+        type:id
+      },
+      method: 'POST',
+      success: function (res) {
+        var array = [];
+        var count = res.data.count;
+        if (count) {
+          for (var index in res.data.trades) {
+            var object = new Object();
+            object.BillDate = res.data.trades[index].date;
+            object.BillNo = res.data.trades[index].out_trade_no;
+            object.Address = res.data.trades[index].leasing_name;
+            object.EmpFullName = res.data.trades[index].body;
+            object.TotalTaxAmount = res.data.trades[index].total_fee;
+            object.Status = page.getStatus(res.data.trades[index].status);
+            array[index] = object;
+          }
+        } 
+        page.setData({ orderShopList: array });
+      },
+      fail: function (res) {
+        wx.showModal({
+          title: '错误提示',
+          content: '服务器无响应，请联系工作人员!',
+          success: function (res) {
+            if (res.confirm) {
+            } else if (res.cancel) {
+            }
+          }
+        })
+      }
+    })
+  },
+
+  getStatus: function (status) {
+    if (status == 2){
+      return '配送中';
+    }
+    else if (status == 3) {
+      return '未归还';
+    }
+    else if (status == 4) {
+      return '已完成';
+    }
+    else{
+      return '无状态';
+    }
+  },
+
   onItemClick: function (e) {
     var index = e.currentTarget.dataset.itemIndex;
-    console.log(index);
   },
 
   onShareAppMessage: function () {
 
   },
-  onLoad: function () {
 
+  onLoad: function (options) {
+    var id = options.type;
+    if (id != 0 && id != undefined) {
+      this.initData(id);
+    }
   }
 })

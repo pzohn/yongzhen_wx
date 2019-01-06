@@ -19,8 +19,8 @@
     </view>
     <view class="sex">
       <radio-group bindchange="radioChange" >
-        <radio id="boy" value="1">男</radio>
-        <radio id="girl" value="0" checked>女</radio>
+        <radio id="boy" value="1" checked>男</radio>
+        <radio id="girl" value="0">女</radio>
       </radio-group>
     </view> 
   </view>

@@ -41,7 +41,9 @@ App({
     backToLeasing:false,
     leasing_id:0,
     phone:'',
+    login_id:0,
     authorizeFlag:false,
-    loginFlag:false
+    loginFlag:false,
+    searchByname:false
   }
 })

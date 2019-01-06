@@ -10,27 +10,12 @@ Page({
    */
   data: {
     imgUrls: [
-      '/images/1.jpg',
-      '/images/2.jpg',
-      '/images/3.jpg'
+      'https://www.yztcc.com/swiper/1.jpg',
+      'https://www.yztcc.com/swiper/2.jpg',
+      'https://www.yztcc.com/swiper/3.jpg'
     ],
-    recommend: [
-      { url: '/images/4.jpg', title: '双轮助行器', price: '5元/天' },
-      { url: '/images/5.jpg', title: '肘杖', price: '1元/天' },
-      { url: '/images/6.jpg', title: '轮椅', price: '3元/天' },
-      { url: '/images/7.jpg', title: '电脑远红按摩床', price: '7元/天' },
-      { url: '/images/8.jpg', title: '多功能训练床', price: '6元/天' },
-      { url: '/images/8.jpg', title: '多功能训练床', price: '6元/天' },
-    ],
-
-    hotrec: [
-      { url: '/images/9.jpg', title: '经颅磁刺激器', price: '10元/天' },
-      { url: '/images/10.jpg', title: '儿童水疗机', price: '9元/天' },
-      { url: '/images/11.jpg', title: '智能疼痛治疗仪', price: '8元/天' },
-      { url: '/images/11.jpg', title: '智能疼痛治疗仪', price: '8元/天' },
-      { url: '/images/11.jpg', title: '智能疼痛治疗仪', price: '8元/天' },
-      { url: '/images/11.jpg', title: '智能疼痛治疗仪', price: '8元/天' }
-    ],
+    recommend: [],
+    hotrec: [],
 
     circular: true,
     indicatorDots: true,
@@ -38,7 +23,8 @@ Page({
     interval: 5000,
     duration: 1000,
     displayMultipleItems: 3,
-    address:''
+    address:'',
+    name:''
   },
 
   /**
@@ -71,6 +57,64 @@ Page({
           }
         });
       },
+    });
+    page.initData();
+  },
+
+  initData: function () {
+    var page = this;
+    wx.request({
+      url: 'https://www.yztcc.com/getShows',
+      method: 'GET',
+      success: function (res) {
+        var count = res.data.good_count;
+        if (count) {
+          var recommend = [];
+          for (var index in res.data.good_shows) {
+            if (index == 6){
+              break;
+            }
+            var object = new Object();
+            object.url = 'https://www.yztcc.com/product_pic/' + res.data.good_shows[index].product_pic;
+            object.title = res.data.good_shows[index].name;
+            object.price = res.data.good_shows[index].price_day + '元/天';
+            object.id = res.data.good_shows[index].id;
+            recommend[index] = object;
+          }
+        }
+
+        count = res.data.hot_count;
+        if (count) {
+          var hotrec = [];
+          for (var index in res.data.hot_shows) {
+            if (index == 6) {
+              break;
+            }
+            var object = new Object();
+            object.url = 'https://www.yztcc.com/product_pic/' + res.data.hot_shows[index].product_pic;
+            object.title = res.data.hot_shows[index].name;
+            object.price = res.data.hot_shows[index].price_day + '元/天';
+            object.id = res.data.hot_shows[index].id;
+            hotrec[index] = object;
+          }
+        }
+
+        page.setData({
+          recommend: recommend,
+          hotrec: hotrec
+        });
+      },
+      fail: function (res) {
+        wx.showModal({
+          title: '错误提示',
+          content: '服务器无响应，请联系工作人员!',
+          success: function (res) {
+            if (res.confirm) {
+            } else if (res.cancel) {
+            }
+          }
+        })
+      }
     })
   },
 
@@ -126,10 +170,50 @@ Page({
 
   },
 
+  accountInput: function (e) {
+    var content = e.detail.value;
+    this.setData({ name: content });
+  },
+
+  resetSearch: function (){
+    var name = this.data.name;
+    if (this.data.name == '') {
+      wx.showModal({
+        title: '搜索条件为空',
+        content: '请输入关键字!',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+          }
+        }
+      });
+      return;
+    }
+    var app = getApp();
+    app.globalData.searchByname = true;
+    wx.navigateTo({
+      url: '../search/search?name=' + name
+    });
+  },
+
   select: function (e) {
     var id = e.currentTarget.id;
     wx.navigateTo({
       url: '../search/search?id=' + id
+    });
+  },
+
+  recommendGood: function (e) {
+    var id = e.currentTarget.id;
+    wx.navigateTo({
+      url: '../details/details?id=' + id
+    });
+  },
+
+  hotrecGood: function (e) {
+    var id = e.currentTarget.id;
+    wx.navigateTo({
+      url: '../details/details?id=' + id
     });
   },
 

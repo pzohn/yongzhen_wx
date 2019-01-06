@@ -80,8 +80,13 @@ Page({
   },
   //选择城市
   bindCity: function (e) {
-    console.log("bindCity")
-    this.setData({ city: e.currentTarget.dataset.city })
+    this.setData({ city: e.currentTarget.dataset.city });
+    var app = getApp();
+    app.globalData.city = e.currentTarget.dataset.city;
+    wx.switchTab({
+      url: '../index/index'
+    });
+    
   },
   //选择热门城市
   bindHotCity: function (e) {

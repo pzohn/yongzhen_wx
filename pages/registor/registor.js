@@ -7,7 +7,7 @@ Page({
   data: {
     disabled: true,
     btnstate: "default",
-    sex: 0
+    sex: 1
   },
 
   accountblur: function (e) {
@@ -23,10 +23,8 @@ Page({
     var sex = e.detail.value;
     if (sex == "1") {
       this.setData({ sex: 1 });
-      console.log(this.data.sex);
     } else {
       this.setData({ sex: 0 });
-      console.log(this.data.sex);
     }
   },
 
@@ -40,19 +38,14 @@ Page({
       return;
     }
     wx.request({
-      url: 'https://www.hattonstar.com/user/save',
+      url: 'https://www.yztcc.com/registor',
       data: {
-        type: 'insert',
-        PHONE: e.detail.value.phone,
-        PASSWORD: e.detail.value.password,
-        NAME: e.detail.value.name,
-        AGE: e.detail.value.age,
-        SEX: this.data.sex,
-        FATHER: e.detail.value.father,
-        MOTHER: e.detail.value.mother,
-        ADDRESS: e.detail.value.address,
-        CARDID: 0,
-        CARDNUM: 0
+        phone: e.detail.value.phone,
+        passwd: e.detail.value.password,
+        name: e.detail.value.name,
+        age: e.detail.value.age,
+        sex: this.data.sex,
+        address: e.detail.value.address
       },
       method: 'POST',
       success: function (res) {
@@ -72,9 +65,9 @@ Page({
             showCancel: false,
             success: function (res) {
               if (res.confirm) {
-                wx.redirectTo({
-                  url: '../login/login',
-                })
+                wx.navigateBack({
+                  delta: 1
+                });
               }
             }
           })

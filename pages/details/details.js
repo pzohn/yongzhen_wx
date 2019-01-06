@@ -16,7 +16,7 @@ Page({
     detail_pic:'',
     totalPrice:0,
     leasing_ids:'',
-    iscollect: true,
+    iscollect: false,
     typeFlag:false,
     casArray: [],
     unit:[],
@@ -24,13 +24,15 @@ Page({
     casIndex: 0,
     dayArray: ['请选择天数>', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
     dayIndex: 0,
-    leasing_id:0
+    leasing_id:0,
+    detail_id:0
   },
 
   onLoad: function (options) {
     var id = options.id;
     if (id != 0 && id != undefined) {
       this.initData(id);
+      this.setData({detail_id:id});
     }
   },
 
@@ -103,6 +105,7 @@ Page({
          });
         app.globalData.backToLeasing = false;
         app.globalData.leasing_id = page.data.leasing_id;
+        page.initCollect();
       },
       fail: function (res) {
         wx.showModal({
@@ -121,6 +124,21 @@ Page({
   pay: function () {
     var page = this;
     var app = getApp();
+    if (app.globalData.loginFlag == false){
+      wx.showModal({
+        title: '用户未登录',
+        content: '请进行用户登录操作!',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../login/login'
+            });
+          }
+        }
+      });
+      return;
+    }
     if (page.data.casIndex == 0){
       wx.showModal({
         title: '错误提示',
@@ -149,7 +167,6 @@ Page({
     }
 
     var details;
-    app.globalData.phone = '18303741618';
     if (page.data.casIndex == 1){
       details = '1@' + page.data.unit[page.data.casIndex] + '@1';
     } else if (page.data.casIndex == 2){
@@ -157,13 +174,7 @@ Page({
     }
     wx.login({
       success: res => {
-        var code = res.code;
-        console.log(code);
-        console.log(page.data.title);
-        console.log(details);
-        console.log(app.globalData.phone);
-        console.log(app.globalData.leasing_id);
-        
+        var code = res.code;  
         if (code) {
           wx.request({
             url: 'https://www.yztcc.com/onPay',
@@ -205,9 +216,80 @@ Page({
     })
   },
 
+  initCollect: function () {
+    var app = getApp();
+    var page = this;
+    if (app.globalData.loginFlag == true) {
+      wx.request({
+        url: 'https://www.yztcc.com/iscollect',
+        data: {
+          login_id: app.globalData.login_id,
+          detail_id: page.data.detail_id
+        },
+        method: 'POST',
+        success: function (res) {
+          page.setData({
+            iscollect: res.data
+          });
+        },
+        fail: function (res) {
+          wx.showModal({
+            title: '错误提示',
+            content: '服务器无响应，请联系工作人员!',
+            success: function (res) {
+              if (res.confirm) {
+              } else if (res.cancel) {
+              }
+            }
+          })
+        }
+      })
+    }
+  },
+
   collect: function () {
-    this.setData({
-      iscollect: !this.data.iscollect
+    var app = getApp();
+    var page = this;
+    if (app.globalData.loginFlag == false) {
+      wx.showModal({
+        title: '用户未登录',
+        content: '请进行用户登录操作!',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../login/login'
+            });
+          }
+        }
+      });
+      return;
+    }
+
+    wx.request({
+      url: 'https://www.yztcc.com/collect',
+      data: {
+        login_id: app.globalData.login_id,
+        detail_id: page.data.detail_id,
+        collect_flag: !page.data.iscollect
+      },
+      method: 'POST',
+      success: function (res) {
+        page.setData({
+          iscollect: res.data
+        });
+      },
+      fail: function (res) {
+        wx.showModal({
+          title: '错误提示',
+          content: '服务器无响应，请联系工作人员!',
+          success: function (res) {
+            if (res.confirm) {
+            } else if (res.cancel) {
+            }
+          }
+        })
+      }
     })
   },
 

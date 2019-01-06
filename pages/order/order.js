@@ -10,19 +10,19 @@ Page({
     avatarUrl:'',
     iconArray: [
       {
-        "iconUrl": '/images/icon/address.png',
+        "iconUrl": 'https://www.yztcc.com/icon/address.png',
         "iconText": '我的地址'
       },
       {
-        "iconUrl": '/images/icon/healthy.png',
+        "iconUrl": 'https://www.yztcc.com/icon/healthy.png',
         "iconText": '健康档案'
       },
       {
-        "iconUrl": '/images/icon/message.png',
+        "iconUrl": 'https://www.yztcc.com/icon/message.png',
         "iconText": '我的消息'
       },
       {
-        "iconUrl": '/images/icon/community.png',
+        "iconUrl": 'https://www.yztcc.com/icon/community.png',
         "iconText": '我的社区'
       }
     ]
@@ -31,9 +31,10 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  list: function() {
+  list: function(e) {
+    var id = e.currentTarget.id;
     wx.navigateTo({
-      url: '../orderlist/orderlist'
+      url: '../orderlist/orderlist?type=' + id
     });
   },
 
@@ -47,9 +48,12 @@ Page({
   },
 
   login: function () {
-    wx.navigateTo({
-      url: '../login/login'
-    });
+    var app = getApp();
+    if (app.globalData.loginFlag == false) {
+      wx.navigateTo({
+        url: '../login/login'
+      });
+    }
   },
 
   onItemClick: function (e) {
@@ -74,6 +78,57 @@ Page({
     }
   },
 
+  loadCoupon: function () {
+    var app = getApp();
+    if (app.globalData.loginFlag == false) {
+      wx.navigateTo({
+        url: '../login/login'
+      });
+      return;
+    }
+    this.collect();
+  },
+
+  collect: function () {
+    var app = getApp();
+    wx.request({
+      url: 'https://www.yztcc.com/getCollect',
+      data: {
+        login_id: app.globalData.login_id
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data != 0) {
+          wx.navigateTo({
+            url: '../collect/collect'
+          });
+        }else{
+          wx.showModal({
+            title: '收藏夹为空',
+            content: '收藏夹为空!',
+            showCancel:false,
+            success: function (res) {
+              if (res.confirm) {
+              } 
+            }
+          });
+          return;
+        }
+      },
+      fail: function (res) {
+        wx.showModal({
+          title: '错误提示',
+          content: '服务器无响应，请联系工作人员!',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+            }
+          }
+        })
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -85,7 +140,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var app = getApp();
+    if (app.globalData.loginFlag == true){
+      this.setData({ phone: app.globalData.phone });
+    }
   },
 
   /**
