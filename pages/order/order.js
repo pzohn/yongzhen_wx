@@ -60,7 +60,10 @@ Page({
     var index = e.currentTarget.dataset.itemIndex;
     console.log(index);
     wx.navigateTo({
-      url: '../info/info'
+      url: '../userInfo/userInfo'
+    })
+    wx.navigateTo({
+      url: '../address/address'
     });
   },
 

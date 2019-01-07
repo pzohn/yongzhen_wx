@@ -1,18 +1,21 @@
 {
   "pages": [
+    "pages/order/order",
     "pages/orderdetail/orderdetail",
     "pages/index/index",
     "pages/login/login",
     "pages/registor/registor",
     "pages/getuser/getuser",
     "pages/search/search",
-    "pages/order/order",
     "pages/switchcity/switchcity",
     "pages/orderlist/orderlist",
     "pages/info/info",
     "pages/details/details",
     "pages/leasing/leasing",
-    "pages/collect/collect"
+    "pages/collect/collect",
+    "pages/address/address",
+    "pages/newaddress/newaddress",
+    "pages/userInfo/userInfo"
   ],
   "permission": {
     "scope.userLocation": {
