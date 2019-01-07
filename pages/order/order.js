@@ -10,20 +10,24 @@ Page({
     avatarUrl:'',
     iconArray: [
       {
+        "iconUrl": 'https://www.yztcc.com/icon/info.png',
+        "iconText": '个人信息',
+        "id":1
+      },
+      {
         "iconUrl": 'https://www.yztcc.com/icon/address.png',
-        "iconText": '我的地址'
+        "iconText": '地址管理',
+        "id": 2
       },
       {
         "iconUrl": 'https://www.yztcc.com/icon/healthy.png',
-        "iconText": '健康档案'
-      },
-      {
-        "iconUrl": 'https://www.yztcc.com/icon/message.png',
-        "iconText": '我的消息'
+        "iconText": '健康档案',
+        "id": 3
       },
       {
         "iconUrl": 'https://www.yztcc.com/icon/community.png',
-        "iconText": '我的社区'
+        "iconText": '我的社区',
+        "id": 4
       }
     ]
   },
@@ -57,14 +61,16 @@ Page({
   },
 
   onItemClick: function (e) {
-    var index = e.currentTarget.dataset.itemIndex;
-    console.log(index);
-    wx.navigateTo({
-      url: '../userInfo/userInfo'
-    })
-    wx.navigateTo({
-      url: '../address/address'
-    });
+    var index = e.currentTarget.id;
+    if (index == 1){
+      wx.navigateTo({
+        url: '../userInfo/userInfo'
+      })
+    } else if (index == 2){
+      wx.navigateTo({
+        url: '../address/address'
+      });
+    }
   },
 
   onLoad: function (options) {
