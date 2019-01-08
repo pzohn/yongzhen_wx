@@ -61,6 +61,13 @@ Page({
   },
 
   onItemClick: function (e) {
+    var app = getApp();
+    if (app.globalData.loginFlag == false) {
+      wx.navigateTo({
+        url: '../login/login'
+      });
+      return;
+    }
     var index = e.currentTarget.id;
     if (index == 1){
       wx.navigateTo({

@@ -34,7 +34,6 @@ Page({
     var page = this;
     wx.getLocation({
       success: function(res) {
-        console.log(res);
         var longitude = res.longitude
         var latitude = res.latitude
 
@@ -49,6 +48,8 @@ Page({
               address: res.result.address
             });
             app.globalData.city = res.result.address_component.city;
+            app.globalData.province = res.result.address_component.province;
+            app.globalData.district = res.result.address_component.district;
           },
           fail: function (res) {
             console.log("定位失败");

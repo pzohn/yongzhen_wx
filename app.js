@@ -38,6 +38,8 @@ App({
 
   globalData: {
     city:'',
+    province:'',
+    district:'',
     backToLeasing:false,
     leasing_id:0,
     phone:'',

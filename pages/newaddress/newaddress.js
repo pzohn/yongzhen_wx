@@ -4,40 +4,42 @@ const app = getApp()
 
 Page({
   data: {
-    tapCurrent: 0,
-    region: ['广东省', '广州市', '海珠区'],
+    region: [],
+    default_flag:false
   },
 
   onLoad: function () {
+      this.initRegion();
+  },
 
-  },
-  userInfo: function () {
-    wx.navigateTo({
-      url: '/pages/userInfo/userInfo'
-    })
-  },
   backAddress: function () {
     wx.navigateTo({
-      url: '/pages/manageAddress/manageAddress'
+      url: '../address/address'
     })
   },
-  bindDateChange: function (e) {
-    this.setData({
-      date: e.detail.value
-    })
-  },
-  discount: function (e) {
-    var current = e.currentTarget.dataset.current;
-    this.setData({
-      tapCurrent: current
-    })
-  },
-  bindDateChange: function (e) {
+
+  bindRegionChange: function (e) {
     this.setData({
       region: e.detail.value
     })
   },
-  switch2Change: function (e) {
 
+  accountInput: function (e) {
+    console.log(e);
+  },
+
+  initRegion: function () {
+    var arry = [];
+    var app = getApp();
+    arry[0] = app.globalData.province;
+    arry[1] = app.globalData.city;
+    arry[2] = app.globalData.district;
+    this.setData({region:arry});
+  },
+
+  switch2Change: function (e) {
+    this.setData({
+      default_flag: e.detail.value
+    })
   },
 })

@@ -17,7 +17,7 @@
 .user_input input{
 	height:32rpx;
 	line-height:32rpx;
-	color:#b2b2b2;
+	color:#000000;
 	font-size:30rpx;
 	width:77%;
 }
