@@ -46,6 +46,7 @@ App({
     login_id:0,
     authorizeFlag:false,
     loginFlag:false,
-    searchByname:false
+    searchByname:false,
+    address_id:0
   }
 })

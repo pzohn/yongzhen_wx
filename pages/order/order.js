@@ -71,7 +71,7 @@ Page({
     var index = e.currentTarget.id;
     if (index == 1){
       wx.navigateTo({
-        url: '../userInfo/userInfo'
+        url: '../useredit/useredit'
       })
     } else if (index == 2){
       wx.navigateTo({

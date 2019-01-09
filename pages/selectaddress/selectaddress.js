@@ -5,7 +5,7 @@ const app = getApp()
 Page({
   data: {
     tapCurrent: 0,
-    address:[]
+    address: []
   },
 
   onLoad: function () {
@@ -34,14 +34,14 @@ Page({
               object.detail = res.data.addresses[index].detail;
               object.id = res.data.addresses[index].id;
               object.index = index;
-              if (object.id == default_id){
+              if (object.id == default_id) {
                 object.default = true;
-              }else{
+              } else {
                 object.default = false;;
               }
               array[index] = object;
             }
-          } else if (count == 1){
+          } else if (count == 1) {
             var object = new Object();
             object.name = res.data.addresses.name;
             object.phone = res.data.addresses.phone;
@@ -71,95 +71,36 @@ Page({
       }
     })
   },
-  
+
+  pay:function(){
+    var app = getApp();
+    var array = this.data.address;
+    for (var index in array) {
+      var object = array[index];
+      if (object.default == true) {
+        app.globalData.address_id = object.id;
+        wx.navigateBack({
+          delta: 1
+        });
+      }
+    }
+  },
+
   setDefault: function (e) {
     var index = e.currentTarget.id;
     var object = this.data.address[index];
     var default_flag = !object.default;
     var default_id = object.id;
-    var page = this;
-    var app = getApp();
-    wx.request({
-      url: 'https://www.yztcc.com/updateDefaultAddress',
-      data: {
-        login_id: app.globalData.login_id,
-        id: object.id
-      },
-      method: 'POST',
-      success: function (res) {
-        var array = page.data.address;
-        for (var index in array) {
-          var object = array[index];
-          if (object.id == default_id) {
-            object.default = true;
-          } else {
-            object.default = false;;
-          }
-          array[index] = object;
-        }
-        page.setData({ address: array });
-      },
-      fail: function (res) {
-        wx.showModal({
-          title: '错误提示',
-          content: '服务器无响应，请联系工作人员!',
-          success: function (res) {
-            if (res.confirm) {
-            } else if (res.cancel) {
-            }
-          }
-        })
+    var array = this.data.address;
+    for (var index in array) {
+      var object = array[index];
+      if (object.id == default_id) {
+        object.default = true;
+      } else {
+        object.default = false;;
       }
-    })
-  },
-
-  edit: function (e) {
-    var id = e.currentTarget.id;
-    wx.redirectTo({
-      url: '/pages/editaddress/editaddress?id=' + id
-    })
-  },
-
-
-  delete: function (e) {
-    var page = this;
-    var app = getApp();
-    wx.request({
-      url: 'https://www.yztcc.com/delAddress',
-      data: {
-        login_id: app.globalData.login_id,
-        id: e.currentTarget.id
-      },
-      method: 'POST',
-      success: function (res) {
-        wx.redirectTo({
-          url: '../address/address'
-        })
-      },
-      fail: function (res) {
-        wx.showModal({
-          title: '错误提示',
-          content: '服务器无响应，请联系工作人员!',
-          success: function (res) {
-            if (res.confirm) {
-            } else if (res.cancel) {
-            }
-          }
-        })
-      }
-    })
-  },
-
-  newAddress: function () {
-    var address = this.data.address;
-    if (address.length == 0){
-      wx.redirectTo({
-        url: '/pages/newaddress/newaddress?have=' + 0
-      })
-    }else{
-      wx.redirectTo({
-        url: '/pages/newaddress/newaddress?have=' + 1
-      })
+      array[index] = object;
     }
+    this.setData({ address: array });
   }
 })

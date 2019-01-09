@@ -11,8 +11,14 @@ Page({
     detail:''
   },
 
-  onLoad: function () {
-      this.initRegion();
+  onLoad: function (options) {
+    var have = options.have;
+    if (have == 0){
+      this.setData({
+        default_flag: true
+      })
+    }
+    this.initRegion();
   },
 
   backAddress: function () {
@@ -27,7 +33,8 @@ Page({
         province: page.data.region[0],
         city: page.data.region[1],
         area: page.data.region[2],
-        detail: page.data.detail
+        detail: page.data.detail,
+        default_flag: page.data.default_flag
       },
       method: 'POST',
       success: function (res) {

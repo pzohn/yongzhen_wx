@@ -141,12 +141,27 @@ Page({
     }
     if (page.data.casIndex == 0){
       wx.showModal({
-        title: '错误提示',
+        title: '提示',
         content: '请选择租赁方式!',
         showCancel:false,
         success: function (res) {
           if (res.confirm) {
             return;
+          }
+        }
+      });
+      return;
+    }
+    if (app.globalData.address_id == 0){
+      wx.showModal({
+        title: '提示',
+        content: '请选择收货地址!',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../selectaddress/selectaddress'
+            });
           }
         }
       });
@@ -184,10 +199,10 @@ Page({
               details: details,
               phone: app.globalData.phone,
               leasing_id: app.globalData.leasing_id,
+              address_id: app.globalData.address_id
             },
             method: 'POST',
             success: function (res) {
-              console.log(res);
               wx.requestPayment(
                 {
                   'timeStamp': res.data.timeStamp,
@@ -196,15 +211,17 @@ Page({
                   'signType': 'MD5',
                   'paySign': res.data.paySign,
                   'success': function (res) {
-                    console.log(res);
                     wx.showModal({
                       title: '支付成功',
                       content: '支付成功!',
                     })
+                    app.globalData.address_id == 0;
                   },
                   'fail': function (res) {
+                    app.globalData.address_id == 0;
                   },
                   'complete': function (res) {
+                    app.globalData.address_id == 0;
                   }
                 })
             },

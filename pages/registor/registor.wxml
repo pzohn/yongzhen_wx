@@ -25,7 +25,7 @@
     </view> 
   </view>
   <view class="item">
-     <input type="text" name="address" placeholder="收获住址(必填)" placeholder-class="holder" />
+     <input type="text" name="address" placeholder="家庭住址(必填)" placeholder-class="holder" />
   </view>
   <button class="btn" disabled="{{disabled}}" type="{{btnstate}}" form-type="submit">注册</button>
 </view>

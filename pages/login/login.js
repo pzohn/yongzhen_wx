@@ -65,7 +65,7 @@ Page({
           })
         }
         else {
-          if (res.data.PHONE != "") {
+          if (res.data.phone != "") {
             var app = getApp();
             app.globalData.login_id = res.data.id;
             app.globalData.phone = res.data.phone;

@@ -16,7 +16,9 @@
     "pages/address/address",
     "pages/newaddress/newaddress",
     "pages/userInfo/userInfo",
-    "pages/editaddress/editaddress"
+    "pages/editaddress/editaddress",
+    "pages/useredit/useredit",
+    "pages/selectaddress/selectaddress"
   ],
   "permission": {
     "scope.userLocation": {
