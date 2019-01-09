@@ -1,4 +1,3 @@
-<!--manageAddress.wxml-->
 <view id="address">
 <block wx:for = "{{address}}" wx:key="address">
   <view class="item">
@@ -16,19 +15,19 @@
       </view>
     </view>
     <view class="address_set flexRowBetween">
-	<view class="default" wx:if="{{item.default}}">
+	<view class="default" wx:if="{{item.default}}" bindtap="setDefault" id = "{{item.index}}">
 		<image src="/images/select_active.jpg"></image>
 		<text>默认地址</text>
 	</view>
-  <view class="default" wx:else>
+  <view class="default" wx:else bindtap="setDefault" id = "{{item.index}}">
 		<image src="/images/select.png"></image>
 		<text class="de_color">设为默认地址</text>
 	</view>
-  <view class="edit">
+  <view class="edit" bindtap="edit" id = "{{item.id}}">
       <image src="/images/edit.jpg"></image>
       <text>编辑</text>
     </view>
-    <view class="edit delete">
+    <view class="edit delete" bindtap="delete" id = "{{item.id}}">
       <image src="/images/del.jpg"></image>
       <text>删除</text>
     </view>

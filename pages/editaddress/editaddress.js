@@ -5,23 +5,24 @@ const app = getApp()
 Page({
   data: {
     region: [],
-    default_flag:false,
-    name:'',
-    phone:'',
-    detail:''
+    name: '',
+    phone: '',
+    detail: '',
+    id:0
   },
 
-  onLoad: function () {
-      this.initRegion();
+  onLoad: function (options) {
+    var id = options.id;
+    this.initData(id);
   },
 
   backAddress: function () {
     var page = this;
     var app = getApp();
     wx.request({
-      url: 'https://www.yztcc.com/insertAddress',
+      url: 'https://www.yztcc.com/updateAddress',
       data: {
-        login_id: app.globalData.login_id,
+        id: page.data.id,
         name: page.data.name,
         phone: page.data.phone,
         province: page.data.region[0],
@@ -56,8 +57,8 @@ Page({
   },
 
   accountInput: function (e) {
-    if (e.currentTarget.id == 1){
-      this.setData({ name: e.detail.value});
+    if (e.currentTarget.id == 1) {
+      this.setData({ name: e.detail.value });
     } else if (e.currentTarget.id == 2) {
       this.setData({ phone: e.detail.value });
     } else if (e.currentTarget.id == 3) {
@@ -65,18 +66,39 @@ Page({
     }
   },
 
-  initRegion: function () {
-    var arry = [];
+  initData: function (id) {
+    var page = this;
     var app = getApp();
-    arry[0] = app.globalData.province;
-    arry[1] = app.globalData.city;
-    arry[2] = app.globalData.district;
-    this.setData({region:arry});
-  },
-
-  switch2Change: function (e) {
-    this.setData({
-      default_flag: e.detail.value
+    wx.request({
+      url: 'https://www.yztcc.com/getAddress',
+      data: {
+        id: id
+      },
+      method: 'POST',
+      success: function (res) {
+        var region = [];
+        region[0] = res.data.province;
+        region[1] = res.data.city;
+        region[2] = res.data.area;
+        page.setData({ 
+          name: res.data.name,
+          phone: res.data.phone,
+          detail: res.data.detail,
+          region: region,
+          id:id
+         });
+      },
+      fail: function (res) {
+        wx.showModal({
+          title: '错误提示',
+          content: '服务器无响应，请联系工作人员!',
+          success: function (res) {
+            if (res.confirm) {
+            } else if (res.cancel) {
+            }
+          }
+        })
+      }
     })
   },
 })

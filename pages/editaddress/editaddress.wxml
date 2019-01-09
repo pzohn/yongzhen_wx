@@ -1,13 +1,13 @@
 <view class="user_input">
 	<view class="users_detail flexRowBetween">
 		<view class="input_note">收货人:</view>
-		<input placeholder="请输入收货人" bindinput="accountInput" id = "1"></input>
+		<input bindinput="accountInput" id = "1" value="{{name}}"></input>
 	</view>
 </view>
 <view class="user_input">
 	<view class="users_detail flexRowBetween">
 		<view class="input_note">手机号码:</view>
-		<input placeholder="请输入手机号码" type="number" style="width:64%;" bindinput="accountInput" id = "2"></input>
+		<input type="number" style="width:64%;" bindinput="accountInput" id = "2" value="{{phone}}"></input>
 		<view class="address_right" style="width:13%;">
 			<text>+86</text>
 			<image src="/images/next_page.jpg"></image>
@@ -29,13 +29,7 @@
 <view class="user_input">
 	<view class="users_detail flexRowBetween">
 		<view class="input_note">详细地址:</view>
-		<input placeholder="如街道，门牌号" bindinput="accountInput" id = "3"></input>
-	</view>
-</view>
-<view class="user_input flexRowBetween">
-	<view class="input_note address_set">设为默认地址</view>
-	<view class="body-view">
-		<switch bindchange="switch2Change"/>
+		<input bindinput="accountInput" id = "3" value="{{detail}}"></input>
 	</view>
 </view>
 <view class="submit_info" bindtap="backAddress">
