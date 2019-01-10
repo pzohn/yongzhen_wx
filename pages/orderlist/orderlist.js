@@ -26,6 +26,7 @@ Page({
             object.EmpFullName = res.data.trades[index].body;
             object.TotalTaxAmount = res.data.trades[index].total_fee;
             object.Status = page.getStatus(res.data.trades[index].status);
+            object.id = res.data.trades[index].id;
             array[index] = object;
           }
         } 
@@ -62,6 +63,10 @@ Page({
 
   onItemClick: function (e) {
     var index = e.currentTarget.dataset.itemIndex;
+    var id = this.data.orderShopList[index].
+    wx.navigateTo({
+      url: '../info/info?id=' + id
+    })
   },
 
   onShareAppMessage: function () {

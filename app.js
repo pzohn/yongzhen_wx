@@ -47,6 +47,7 @@ App({
     authorizeFlag:false,
     loginFlag:false,
     searchByname:false,
-    address_id:0
+    address_id:0,
+    tempDataFromMyOrderToDetail: null
   }
 })

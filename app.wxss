@@ -1,4 +1,8 @@
 /**app.wxss**/
+
+@import '/assets/css/dd-reset.wxss';
+@import '/assets/css/dd-init.wxss';
+
 .container {
   height: 100%;
   display: flex;

@@ -36,6 +36,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   list: function(e) {
+    var app = getApp();
+    if (app.globalData.loginFlag == false) {
+      wx.navigateTo({
+        url: '../login/login'
+      });
+      return;
+    }
     var id = e.currentTarget.id;
     wx.navigateTo({
       url: '../orderlist/orderlist?type=' + id
