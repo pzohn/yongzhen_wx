@@ -6,12 +6,12 @@
       <view class='title2'>
         <text class='dd-c_o'>| </text> 商品明细
       </view>
-      <view class="dd-row dd-h-2side dd-v-center orderItem" wx:for="{{detailsData.goods}}" wx:for-item="item2">
+      <view class="dd-row dd-h-2side dd-v-center orderItem" wx:for="{{goods}}" wx:key="goods"  wx:for-item="item2">
         <template is="goodsItem" data="{{item2}}" />
       </view>
     </view>
 
-    <view class='item' wx:for="{{goodsTAndList}}" wx:for-item="item">
+    <view class='item' wx:for="{{goodsTAndList}}" wx:key="goodsTAndList" wx:for-item="item">
       <view class="dd-row dd-h-2side">
         <view>{{item.title}}</view>
         <view>
@@ -26,7 +26,7 @@
 <!-- 已完成  -->
 
 <view class='dd-column'>
-  <view class='title haveDown dd-center'>已完成</view>
+  <view class='title haveDown dd-center'>{{status}}</view>
 
   <template is="content" data="{{detailsData,goodsTAndList}}" />
   <!-- 评价订单  -->
@@ -35,7 +35,7 @@
       <text class='dd-c_o'>| </text>评价订单
     </view>
     <view class='star dd-row dd-h-center'>
-      <block wx:for="{{stars}}" wx:for-item="starItem" wx:for-index="starIndex">
+      <block wx:for="{{stars}}" wx:key="stars" wx:for-item="starItem" wx:for-index="starIndex">
         <view class='starImg' catchtap='checkStar' data-i='{{starIndex}}'>
           <image src='{{starItem==1 ? "/images/stary.png" : "/images/starc.png"}}'></image>
         </view>

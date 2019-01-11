@@ -25,7 +25,8 @@ Page({
     dayArray: ['请选择天数>', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
     dayIndex: 0,
     leasing_id:0,
-    detail_id:0
+    detail_id:0,
+    body_id:0
   },
 
   onLoad: function (options) {
@@ -101,7 +102,8 @@ Page({
           leasing_id: res.data.leasing_first.id,
           casArray: casArray,
           unit: unit,
-          leasing_ids: res.data.leasings
+          leasing_ids: res.data.leasings,
+          body_id:id
          });
         app.globalData.backToLeasing = false;
         app.globalData.leasing_id = page.data.leasing_id;
@@ -199,7 +201,8 @@ Page({
               details: details,
               phone: app.globalData.phone,
               leasing_id: app.globalData.leasing_id,
-              address_id: app.globalData.address_id
+              address_id: app.globalData.address_id,
+              body_id: page.data.id
             },
             method: 'POST',
             success: function (res) {

@@ -63,7 +63,7 @@ Page({
 
   onItemClick: function (e) {
     var index = e.currentTarget.dataset.itemIndex;
-    var id = this.data.orderShopList[index].
+    var id = this.data.orderShopList[index].id;
     wx.navigateTo({
       url: '../info/info?id=' + id
     })

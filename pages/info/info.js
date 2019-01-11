@@ -1,23 +1,8 @@
 Page({
   data: {
-    detailsData: {},
+    goods: {},
+    status:'',
     goodsTAndList: [
-      {
-        title: '下单时间',
-        message: '2018/02/12 21:58:59'
-      },
-      {
-        title: '订单编号',
-        message: 1212121215456
-      },
-      {
-      title: '收货位置',
-      message: '万盛南加州6-1-103'
-      }, 
-      {
-        title: '实付',
-        message: 0.06
-      }
     ],
     stars: [1, 1, 1, 1, 1]
   },
@@ -27,45 +12,77 @@ Page({
    */
   onLoad: function (options) {
     var id = options.id;
-    this.initData(id)
-
-
-
-    console.log(getApp().globalData.tempDataFromMyOrderToDetail);
-    let tempData = getApp().globalData.tempDataFromMyOrderToDetail;
-    console.log("tempData---->", typeof tempData)
-    this.setData({
-      detailsData: tempData
-    })
-
+    this.initData(id);
   },
 
   initData: function (id) {
     var page = this;
     var app = getApp();
     wx.request({
-      url: 'https://www.yztcc.com/getTrades',
+      url: 'https://www.yztcc.com/getTrade',
       data: {
-        phone: app.globalData.phone,
-        type: id
+        id: id
       },
       method: 'POST',
       success: function (res) {
         var array = [];
-        var count = res.data.count;
-        if (count) {
-          for (var index in res.data.trades) {
-            var object = new Object();
-            object.BillDate = res.data.trades[index].date;
-            object.BillNo = res.data.trades[index].out_trade_no;
-            object.Address = res.data.trades[index].leasing_name;
-            object.EmpFullName = res.data.trades[index].body;
-            object.TotalTaxAmount = res.data.trades[index].total_fee;
-            object.Status = page.getStatus(res.data.trades[index].status);
-            array[index] = object;
-          }
+        var index = 0;
+        if (res.data.created_at != "") {
+          var object = new Object();
+          object.title = '下单时间';
+          object.message = res.data.created_at;
+          array[index] = object;
+          index++;
         }
-        page.setData({ orderShopList: array });
+        if (res.data.out_trade_no != ""){
+          var object = new Object();
+          object.title = '订单编号';
+          object.message = res.data.out_trade_no;
+          array[index] = object;
+          index++;
+        }
+        if (res.data.address != "") {
+          var object = new Object();
+          object.title = '收货位置';
+          object.message = res.data.address;
+          array[index] = object;
+          index++;
+        }
+        if (res.data.type != 0) {
+          var object = new Object();
+          object.title = '租赁类型';
+          if (res.data.type == 2){
+            object.message = '按日租赁';
+          }else if (res.data.type == 1) {
+            object.message = '按月租赁';
+          }
+          array[index] = object;
+          index++;
+        }
+        if (res.data.day != 0) {
+          var object = new Object();
+          object.title = '租赁天数';
+          object.message = res.data.day + '天';
+          array[index] = object;
+          index++;
+        }
+        var object = new Object();
+        object.title = '实付';
+        object.message = res.data.total_fee + '元';
+        array[index] = object;
+
+        var status = page.getStatus(res.data.status);
+
+        var arrayTmp = [];
+        var object = new Object();
+        object.pic = 'https://www.yztcc.com/product_pic/' + res.data.good.product_pic;
+        object.name = res.data.good.name;
+        arrayTmp[0] = object;
+        page.setData({ 
+          goodsTAndList:array,
+          status: status,
+          goods:arrayTmp
+          });
       },
       fail: function (res) {
         wx.showModal({
@@ -79,6 +96,21 @@ Page({
         })
       }
     })
+  },
+
+  getStatus: function (status) {
+    if (status == 2) {
+      return '配送中';
+    }
+    else if (status == 3) {
+      return '未归还';
+    }
+    else if (status == 4) {
+      return '已完成';
+    }
+    else {
+      return '无状态';
+    }
   },
 
   // 点击了星星
