@@ -202,7 +202,7 @@ Page({
               phone: app.globalData.phone,
               leasing_id: app.globalData.leasing_id,
               address_id: app.globalData.address_id,
-              body_id: page.data.id
+              body_id: page.data.body_id
             },
             method: 'POST',
             success: function (res) {

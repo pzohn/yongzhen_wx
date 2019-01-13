@@ -199,7 +199,6 @@ Page({
 
   seeDetail: function (e) {
     var id = this.data.array[e.currentTarget.id].id;
-    console.log(id);
     wx.navigateTo({
       url: '../details/details?id=' + id
     });

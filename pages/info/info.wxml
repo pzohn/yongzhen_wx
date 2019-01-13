@@ -28,7 +28,7 @@
 <view class='dd-column'>
   <view class='title haveDown dd-center'>{{status}}</view>
 
-  <template is="content" data="{{detailsData,goodsTAndList}}" />
+  <template is="content" data="{{goods,goodsTAndList}}" />
   <!-- 评价订单  -->
   <view class='item'>
     <view class='title2'>
@@ -41,9 +41,9 @@
         </view>
       </block>
     </view>
-    <textarea class="ta" placeholder='随便评论，展示你绝妙的文笔'></textarea>
+    <textarea class="ta" placeholder='评论区'></textarea>
     <view class='dd-row dd-center'>
-      <view class='dd-btn-yellow'>提 交</view>
+      <button class="btn" type="primary" form-type="submit">确定评价</button>
     </view>
     <view style='height:40pt;'></view>
   </view>

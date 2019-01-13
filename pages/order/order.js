@@ -167,6 +167,17 @@ Page({
     if (app.globalData.loginFlag == true){
       this.setData({ phone: app.globalData.phone });
     }
+
+    var wxUserInfo = wx.getStorageSync('wxUserInfo');
+    if (wxUserInfo == "") {
+      app.globalData.authorizeFlag = false;
+    } else {
+      this.setData({
+        nickName: wxUserInfo.nickName,
+        avatarUrl: wxUserInfo.avatarUrl
+      });
+      app.globalData.authorizeFlag = true;
+    }
   },
 
   /**

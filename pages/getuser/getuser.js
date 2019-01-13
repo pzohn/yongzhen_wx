@@ -16,10 +16,14 @@ Page({
   },
 
   onGotUserInfo(e) {
+    console.log(e);
     var wxUserInfo = new Object();
     wxUserInfo.nickName = e.detail.userInfo.nickName;
     wxUserInfo.avatarUrl = e.detail.userInfo.avatarUrl;
     wx.setStorageSync('wxUserInfo', wxUserInfo);
+    wx.navigateBack({
+      delta: 1
+    });
   },
 
   /**

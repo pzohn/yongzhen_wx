@@ -1,5 +1,3 @@
-@import "../template/goodsItem.wxss";
-
 /*标题  */
 
 .title {
@@ -60,4 +58,16 @@
   box-shadow: 0 0 5pt red;
   width: 250pt;
   background: #fff;
+}
+
+.goodsName{
+  font-size: 12pt;
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.btn{
+    width: 80%;
+    color: #999999;
+    margin-top:40px; 
 }

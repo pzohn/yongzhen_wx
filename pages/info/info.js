@@ -1,6 +1,7 @@
 Page({
   data: {
-    goods: {},
+    goods: [],
+    pic:'',
     status:'',
     goodsTAndList: [
     ],
@@ -77,12 +78,14 @@ Page({
         var object = new Object();
         object.pic = 'https://www.yztcc.com/product_pic/' + res.data.good.product_pic;
         object.name = res.data.good.name;
+        object.id = res.data.good.id;
         arrayTmp[0] = object;
         page.setData({ 
           goodsTAndList:array,
           status: status,
           goods:arrayTmp
           });
+          console.log(page.data.goods);
       },
       fail: function (res) {
         wx.showModal({
@@ -111,6 +114,13 @@ Page({
     else {
       return '无状态';
     }
+  },
+
+  detail:function() {
+    var id = this.data.goods[0].id;
+    wx.navigateTo({
+      url: '../details/details?id=' + id
+    });
   },
 
   // 点击了星星
