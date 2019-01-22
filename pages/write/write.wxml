@@ -1,3 +1,11 @@
+<text>上传图片</text>
+<view>
+ 
+<button bindtap="uploadimg">点击选择上传图</button>
+ 
+</view>
+<image src='{{source}}' style='width:600rpx; height:600rpx' />
+
 <view class='page'>
   <textarea class='title' bindinput="input" placeholder="标题" auto-height/>
   <view class="hr"></view>
