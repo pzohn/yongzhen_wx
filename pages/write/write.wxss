@@ -1,0 +1,41 @@
+
+.page{
+  padding: 20px
+}
+
+.title{
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 20px;
+  padding: 5px
+}
+
+.text{
+  width: 100%;
+  margin-bottom: 160px;
+  font-size: 16px;
+  padding: 5px
+}
+ 
+.image{
+  width:31%;
+  height: 100px;
+  padding: 2px
+}
+ 
+.moment_img{
+  width: 66px;
+  height: 66px;
+}
+ 
+.image_content{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px
+}
+
+.hr{
+  border: 1px solid #0c0c0c;
+  margin-bottom: 10px;
+}

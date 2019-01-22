@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/write/write",
     "pages/index/index",
     "pages/topics/topics",
     "pages/order/order",
