@@ -1,18 +1,10 @@
-<text>上传图片</text>
-<view>
- 
-<button bindtap="uploadimg">点击选择上传图</button>
- 
-</view>
-<image src='{{source}}' style='width:600rpx; height:600rpx' />
-
 <view class='page'>
-  <textarea class='title' bindinput="input" placeholder="标题" auto-height/>
+  <textarea class='title' bindinput="title" placeholder="标题" auto-height/>
   <view class="hr"></view>
   <textarea class='text' bindinput="input" placeholder="内容" auto-height/>
   <view class="hr"></view>
   <view class="image_content">
-    <view class='image' wx:for="{{img_url}}">
+    <view class='image' wx:for="{{img_url}}" wx:key="{{img_url}}">
       <image class="moment_img" src="{{item}}"></image>
     </view>
     <view class='image' style='display:{{hideAdd?"none":"block"}}'>
